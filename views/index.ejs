@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include('components/head-meta'); %>
+    
+    <link rel="stylesheet" href="assets/style.css" />
+
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+    integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+    crossorigin="anonymous"
+    />
+
+    <link
+        rel="stylesheet"
+        href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css"
+        integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ=="
+        crossorigin=""
+    />
+  </head>
+  
+
+  <body>
+    <%- include('components/navbar') %>
+
+    <h1 class="display-4" id="paragraph-title">
+      Disctric heating system components
+    </h1>
+
+    <p class="lead" id="paragraph">
+      District heating and cooling system has different components, as
+      illustrated in the figure below. Thermal supply constitutes of the thermal
+      source, coupled with supply technology and thermal storage, thermal
+      network, and end-user substation.
+    </p>
+
+    <img
+      src="assets/img/overview_of_the_DHC_system.png"
+      id="overview_of_the_DHC_system"
+    />
+    <p class="lead" id="paragraph">
+      In this section, different types of end-user substations, thermal networks
+      and thermal sources are shown. These system components can be combined in
+      numerous different ways. In this document, the most common combinations
+      are shown while focusing on ultra-low temperature (ULTDH) and neutral
+      temperature (NTDH) district heating system. Main characteristics of such
+      networks, and comparison with traditional low-temperature (LTDH) systems
+      are shown below.
+    </p>
+
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card" style="width: 18rem">
+            <div class="card-body">
+              <h5 class="card-title">LTDH</h5>
+              <p class="card-text">Temperature regimes around 55-60°C</p>
+              <p class="card-text">Thermal losses relatively high (~20%)</p>
+              <p class="card-text">
+                RES and urban WH must be boosted via HP before thermal network
+              </p>
+              <p class="card-text">
+                No need for boosting technologies in end-user substations
+              </p>
+              <p class="card-text">
+                Simultaneous heating and cooling not possible
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card" style="width: 18rem">
+            <div class="card-body">
+              <h5 class="card-title">ULTDH</h5>
+              <p class="card-text">Temperature regimes around 35-45°</p>
+              <p class="card-text">Thermal losses relatively low (~15%)</p>
+              <p class="card-text">
+                RES and urban WH are usually boosted via HP before thermal
+                network
+              </p>
+              <p class="card-text">
+                Need for DHW temperature boosting in end-user substations
+              </p>
+              <p class="card-text">
+                Simultaneous heating and cooling not possible
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card" style="width: 18rem">
+            <div class="card-body">
+              <h5 class="card-title">NTDH</h5>
+              <p class="card-text">Temperature regimes around 15-25°C</p>
+              <p class="card-text">Thermal losses are minimal (~10%)</p>
+              <p class="card-text">
+                RES and urban WH can be directly injected in the thermal network
+                without booster heat pump
+              </p>
+              <p class="card-text">
+                Need for SH and DHW temperature boosting in end-user substations
+              </p>
+              <p class="card-text">Simultaneous heating and cooling possible</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br />
+
+    <div id="map"></div>
+    <br />
+    <h1 class="display-4" id="paragraph-title">End-user substations</h1>
+    <p class="lead" id="paragraph">
+      End-user substation is component which is usually located in the building
+      of the final user. Substation is used to connect primary (thermal network)
+      and secondary (building) thermal circuit. End-user substations are used to
+      cover space heating (SH), domestic hot water (DHW) and space cooling (SC)
+      demand. The type of end-user substation is directly related to temperature
+      regimes in the thermal network. Due to this, in this analysis three
+      substation types are defined: LTDH, ULTDH and NTDH substations. The main
+      characteristics of ULTDH and NTDH substations are shown in Table 7, which
+      shows main characteristics of ULTDH and NTDH substations and comparison
+      with “traditional“ LTDH substations. Additional details on end-user
+      substations can be found in deliverables D4.1 - Configuration and sizing
+      of Package Substations and D4.2 - Prefabricated skids.
+    </p>
+
+    <!--LTDH-->
+
+    <a id="ltdh"></a>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">LTDH</h1>
+        <ul class="lead" style="list-style-type: circle">
+          <li>
+            Space heating and domestics hot water demand can be covered directly
+            without temperature boosting
+          </li>
+          <li>Substations use traditional technologies and concepts</li>
+          <li>
+            Relatively simple design and operation Investment relatively small
+          </li>
+          <li>
+            Bi-directional energy exchange with thermal network is not possible
+          </li>
+        </ul>
+
+        <!--Instantaneous heat exchanger unit-->
+
+        <button type="button" id="fade1" class="btn btn-light">
+          Instantaneous heat exchanger unit
+        </button>
+        <br />
+        <br />
+
+        <div class="LTDH" id="div1">
+          <p class="lead">
+            LTDH substation – instantaneous heat exchanger unit <br />
+            This LTDH substation is based on instantaneous heat
+            exchanger unit. It is highly efficient and compact heat
+            exchanger capable of providing domestic hot water on-demand.
+          </p>
+
+          <p id="SWOT">
+            <b>S</b>trengths
+            <br />
+            &emsp;- Low-space consuming
+            <br />
+            &emsp;- Cost-effective
+            <br />
+            <b>W</b>eaknesses
+            <br />
+            &emsp;- DHW production on demand (no TES available)
+            <br />
+            <b>O</b>pportunities
+            <br />
+            &emsp;- Easily upgradeable
+            <br />
+            <b>T</b>hreats
+            <br />
+            &emsp;- System flexibility is reduced
+          </p>
+        </div>
+        <div class="LTDH" id="div2">
+          <img
+            src="assets/img/LTDH_integrated_heat_exchanger.png"
+            id="LTDH_integrated_heat_exchanger"
+          />
+        </div>  
+
+        <!--Distric heating storage unit-->
+
+        <button type="button" id="fade2" class="btn btn-light">
+          Distric heating storage unit
+        </button>
+        <br />
+        <br />
+
+        <div class="LTDH" id="div3">
+          <p class="lead">
+            Second LTDH substation is based on district heating storage unit.
+            Due to water stagnation, temperature regimes must be higher that
+            with IHEU. This solution demands higher volume for installation of
+            district heating storage tank. Besides thermal storage unit, heat
+            exchangers are needed domestic hot water and space heating demand.
+          </p>
+
+          <p id="SWOT">
+            <b>S</b>trengths
+            <br />
+            &emsp;- Increased flexibility (TES available on-site)
+
+            <br />
+            <b>W</b>eaknesses
+            <br />
+            &emsp;- TES investment needed
+            <br />
+            &emsp;- Additional space is needed in the building
+            <br />
+            <b>O</b>pportunities
+            <br />
+            &emsp;- asily replaceable with different space-demanding solution
+            (booster heat pump)
+
+            <br />
+            <b>T</b>hreats
+            <br />
+            &emsp;- Higher temperature is needed due to stagnated water
+            (Legionella risk)
+          </p>
+        </div>
+        <div class="LTDH" id="div4">
+          <img
+            src="assets/img/LTDH_district_heating_storage_unit.png"
+            id="LTDH_district_heating_storage_unit"
+          />
+        </div>                                
+      </div>
+    </div>
+
+    <!-- ULTDH -->
+
+    <a id="ultdh"></a>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">ULTDH</h1>
+        <ul class="lead" style="list-style-type: circle">
+          <li>
+            Space heating can be covered directly by using direct heat
+            exchanger, while domestic hot water demand should be covered via
+            booster unit or additional heater
+          </li>
+          <li>
+            Substations must use boosting technology such as electrical heater
+            (simple solution) or booster heat pump (more com)
+          </li>
+          <li>
+            Substation design more complex since it includes DHW booster
+            technology
+          </li>
+          <li>Investment is increased due to booster technology</li>
+          <li>
+            Bi-directional energy exchange with thermal network is possible but
+            limited
+          </li>
+        </ul>
+
+        <!--Booster heat pump and district heating storage unit-->
+
+        <button type="button" id="fade3" class="btn btn-light">
+          Booster heat pump and district heating storage unit
+        </button>
+        <br />
+        <br />
+
+        <div class="ULTDH" id="div5">
+          <p class="lead">
+            This substation is based on booster heat pump combined with district
+            heating storage unit. Thermal network supply line is used both as a
+            heat source and a heat sink for a heat pump. Hot water is feeding
+            the district heating storage unit and/or DHW heat exchanger. Since
+            the temperature regime of the network is suitable for space heating
+            demand, no boosting is needed.
+          </p>
+
+          <p id="SWOT">
+            <b>S</b>trengths
+            <br />
+            &emsp;- Single heat pump per building
+            <br />
+            &emsp;- Flexible and central DHW production
+            <br />
+            &emsp;- Reduced cost (BHP economy of scale)
+            <br />
+            <b>W</b>eaknesses
+            <br />
+            &emsp;- Space demanding (building substation)
+            <br />
+            &emsp;- Lower booster heat pump COP due to higher temperature in TES
+            needed
+            <br />
+            <b>O</b>pportunities
+            <br />
+            &emsp;- Easily replaceable with different technology
+            <br />
+            &emsp;- Flexible production could utilise low electricity tariffs
+
+            <br />
+            <b>T</b>hreats
+            <br />
+            &emsp;- Water stagnation (high temperature needed)
+            <br />
+            &emsp;- DH network reduction influences BHP COP
+          </p>
+        </div>
+        <div class="ULTDH" id="div6">
+          <img
+            src="assets/img/ULTDH_booster_heat_pump_and_district_heating_storage_unit.png"
+            id="ULTDH_booster_heat_pump_and_district_heating_storage_unit"
+          />
+          <!--YOU MIGHT NEED TO ADD THE ALTERNATIVE ASWELL BUT FIRST JUST MAKE THE FULL LAYOUT-->
+        </div>
+
+        <!--Micro booster heat pumps-->
+
+        <button type="button" id="fade4" class="btn btn-light">
+          Micro booster heat pumps
+        </button>
+        <br />
+        <br />
+
+        <div class="ULTDH" id="div7">
+          <p class="lead">
+            The substation also utilizes thermal network supply pipe as a heat
+            source, however there is no central heat pump in the substation. On
+            the contrary, every apartment building has its own micro booster
+            heat pump which enables DHW production on-demand. This means there
+            is little-to-no water stagnation in the system and temperatures can
+            be kept relatively low (around 55°C), thus resulting in relatively
+            high COP. Thermal network temperature regime is sufficient for space
+            heating production, thus only heat exchanger is needed.
+          </p>
+
+          <p id="SWOT">
+            <b>S</b>trengths
+            <br />
+            &emsp;- Low temperature lift, due to low water stagnation, results
+            in high COP
+            <br />
+            &emsp;- Low-space consumption
+            <br />
+            <b>W</b>eaknesses
+            <br />
+            &emsp;- Every apartment needs booster heat pump
+            <br />
+            &emsp;- Investment cost intensive
+            <br />
+            <b>O</b>pportunities
+            <br />
+            &emsp;- Low operational cost and low vulnerability to electricity
+            tariffs
+            <br />
+            <b>T</b>hreats
+            <br />
+            &emsp;- Difficult to replace
+          </p>
+        </div>
+        <div class="ULTDH" id="div8">
+          <img
+            src="assets/img/ULTDH_micro_booster_heat_pumps.png"
+            id="ULTDH_micro_booster_heat_pumps"
+          />
+        </div>
+
+        <!--other booster technology (e.g. air heat pump)-->
+
+        <button type="button" id="fade5" class="btn btn-light">
+          Other booster technology (e.g. air heat pump)
+        </button>
+        <br />
+        <br />
+
+        <div class="ULTDH" id="div9">
+          <p class="lead">
+            This substation is using ULTDH network only for covering space
+            heating demand. Since thermal network temperatures are sufficient,
+            only heat exchanger is needed. However, for domestic hot water
+            production additional locally installed technology should be used,
+            such as ais-source heat pump.
+          </p>
+
+          <p id="SWOT">
+            <b>S</b>trengths
+            <br />
+            &emsp;- Simpler system planning
+            <br />
+            &emsp;- Utilisation of well-established technologies
+
+            <br />
+            <b>W</b>eaknesses
+            <br />
+            &emsp;- Thermal network is not utilised as a heat source (lower
+            system COP)
+            <br />
+            &emsp;- DH connection and additional supply technology is needed
+            (high investment)
+
+            <br />
+            <b>O</b>pportunities
+            <br />
+            &emsp;- Booster technology could also serve as a back-up technology
+            if DH network is under retrofit e.g
+            <br />
+            <b>T</b>hreats
+            <br />
+            &emsp;- Operational cost depends on the booster heat source (on the
+            other hand DH temperature regimes are guaranteed)
+          </p>
+        </div>
+        <div class="ULTDH" id="div10">
+          <img
+            src="assets/img/ULTDH_air_heat_pump.png"
+            id="ULTDH_air_heat_pump"
+          />
+        </div>
+
+        <!--other booster technology (e.g. boiler)-->
+
+        <button type="button" id="fade6" class="btn btn-light">
+          Other booster technology (e.g. boiler)
+        </button>
+        <br />
+        <br />
+
+        <div class="ULTDH" id="div11">
+          <p class="lead">
+            Like the previous one, this substation is also additional booster
+            technology to cover domestic hot water demand. In this case, the
+            booster technology is a boiler which can use electrical energy,
+            natural gas or biomass.
+          </p>
+
+          <p id="SWOT">
+            <b>S</b>trengths
+            <br />
+            &emsp;- Simpler system planning
+            <br />
+            &emsp;- Utilisation of well-established technologies
+            <br />
+            &emsp;- Local energy tariffs could be utilised (e.g. if biomass is
+            locally available)
+
+            <br />
+            <b>W</b>eaknesses
+            <br />
+            &emsp;- Thermal network is not utilised as a heat source (lower
+            system COP)
+            <br />
+            &emsp;- DH connection and additional supply technology is needed
+            (high investment)
+
+            <br />
+            <b>O</b>pportunities
+            <br />
+            &emsp;- Booster technology could also serve as a back-up technology
+            if DH network is under retrofit e.g.
+            <br />
+            &emsp;- Easily replaceable with other technology
+
+            <br />
+            <b>T</b>hreats
+            <br />
+            &emsp;- Operational costs depend on the energy tariffs of the used
+            fuel (e.g. natural gas)
+          </p>
+        </div>
+        <div class="ULTDH" id="div12">
+          <img src="assets/img/ULTDH_boiler.png" id="ULTDH_boiler" />
+        </div>
+      </div>
+    </div>
+
+    <!--NTDH-->
+
+    <a id="ntdh"></a>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-4">NTDH</h1>
+        <ul class="lead" style="list-style-type: circle">
+          <li>
+            Both space heating and domestic hot water demand cannot be covered
+            directly due to low temperature regimes in the thermal network.
+          </li>
+
+          <li>Boosting technology, such as heat pump is needed</li>
+
+          <li>
+            Substations are usually based on water-water heat pumps with
+            relatively high COP due to small temperature differences between
+            heat source and heat sink
+          </li>
+
+          <li>
+            Substations are relatively complex, resulting in high investment.
+          </li>
+          <li>
+            Operation is relatively complex and thermal network operator usually
+            must be responsible and is owner of the equipment
+          </li>
+
+          <li>Low operational cost due to high COP of heat pump</li>
+          <li>Possible to cover cooling demand</li>
+
+          <li>
+            Bi-directional energy exchange with thermal network is possible
+          </li>
+        </ul>
+
+        <!-- BHP for DHW and SH, SC directly-->
+
+        <button type="button" id="fade7" class="btn btn-light">
+          BHP for DHW and SH, SC directly
+        </button>
+        <br />
+        <br />
+
+        <div class="NTDH" id="div13">
+          <p class="lead">
+            In this NTDH substation, booster heat pump is using thermal network
+            warm pipe as heat source to provide space heating and domestic hot
+            water. Two buffer tanks are used to increase flexibility of the
+            system and secure temperature stability. Furthermore, space cooling
+            is directly covered by using cold pipe of the NTDH network. It is
+            important to mention that temperature regimes of the cold pipe
+            should be around 10°C to be suitable for direct cooling.
+          </p>
+
+          <p id="SWOT">
+            <b>S</b>trengths
+            <br />
+            &emsp;- Single BHP for DHW and SH
+            <br />
+            &emsp;- Space cooling directly
+            <br />
+            <b>W</b>eaknesses
+            <br />
+            &emsp;- Low temperature of return needed for direct space cooling
+            <br />
+            &emsp;- Return temperature must be low enough to cover direct
+            cooling
+            <br />
+            <b>O</b>pportunities
+            <br />
+            &emsp;- Simultaneous heating and cooling is possible (however rarely
+            used)
+            <br />
+            &emsp;- Could be upgraded from existing ULTDH
+            <br />
+            <b>T</b>hreats
+            <br />
+            &emsp;- Booster heat pump COP could be reduced due to network
+            temperature constraint
+          </p>
+        </div>
+        <div class="NTDH" id="div14">
+          <img
+            src="assets/img/NTDH_BHP_for_DHW_and_SH_SC_directly.png"
+            id="NTDH_BHP_for_DHW_and_SH_SC_directly"
+          />
+        </div>
+
+        <!-- BHP for DHW and SH, SC as heat source for DHW BHP-->
+
+        <button type="button" id="fade8" class="btn btn-light">
+          BHP for DHW and SH, SC as heat source for DHW BHP
+        </button>
+        <br />
+        <br />
+
+        <div class="NTDH" id="div15">
+          <p class="lead">
+            This substation is also based on the booster heat pump. Heat pump is
+            used to cover both space heating and domestic hot water demand.
+            However, heat source (evaporator side) changes depending on the
+            heating and cooling mode of the substation. In the heating mode
+            (when space heating is needed), heat source is warm pipe of the
+            thermal network. In the cooling mode (when space cooling is needed),
+            heat source is return flow from the cooling system. This means that
+            booster heat pump is used both for cooling and DHW production
+            simultaneously.
+          </p>
+
+          <p id="SWOT">
+            <b>S</b>trengths
+            <br />
+            &emsp;- Heat recycling on-site
+            <br />
+            &emsp;- Building-level system COP relatively high
+            <br />
+            &emsp;- Only one BHP needed
+            <br />
+            <b>W</b>eaknesses
+            <br />
+            &emsp;- Space cooling possible only with DHW production
+            <br />
+            &emsp;- DHW BHP performance reduced since heat source is on lower
+            temperature than network
+            <br />
+            <b>O</b>pportunities
+            <br />
+            &emsp;- Space cooling system could be easily upgraded with
+            additional BHP if needed
+            <br />
+
+            <b>T</b>hreats
+            <br />
+            &emsp;- DHW and SC demand should be simultaneous and balanced
+          </p>
+        </div>
+        <div class="NTDH" id="div16">
+          <img
+            src="assets/img/NTDH_BHP_for_DHW_and_SH_SC_as_heat_source_for_DHW_BHP_heating_mode.png"
+            id="NTDH_BHP_for_DHW_and_SH_SC_as_heat_source_for_DHW_BHP_heating_mode"
+          />
+          <img
+            src="assets/img/NTDH_BHP_for_DHW_and_SH_SC_as_heat_source_for_DHW_BHP_cooling_mode.png"
+            id="NTDH_BHP_for_DHW_and_SH_SC_as_heat_source_for_DHW_BHP_cooling_mode"
+          />
+        </div>
+
+        <!-- Reversible heat pump for SH/DHW and SC-->
+
+        <button type="button" id="fade9" class="btn btn-light">
+          Reversible heat pump for SH/DHW and SC
+        </button>
+        <br />
+        <br />
+
+        <div class="NTDH" id="div17">
+          <p class="lead">
+            This NTDH substation on reversible heat pump which provides space
+            heating and domestic hot water during heating mode and space cooling
+            during cooling mode. In this configuration, it is not possible to
+            cover domestic hot water and space cooling simultaneously. During
+            heating mode warm pipe is used both as heat sink and heat source to
+            provide SH and DHW. During cooling mode network is used as heat
+            sink, increasing its temperature from cold to warm pipe temperature.
+            Heat source is return from space cooling system.
+          </p>
+
+          <p id="SWOT">
+            <b>S</b>trengths
+            <br />
+            &emsp;- High COP both for heating and cooling - Network serves as
+            heat sink and heat source
+
+            <br />
+            <b>W</b>eaknesses
+            <br />
+            &emsp;- Not possible cover heating and cooling simultaneously -
+            Reversible heat pump needed
+            <br />
+            <b>O</b>pportunities
+            <br />
+            &emsp;- TES could be added in order to increase flexibility
+            <br />
+            <b>T</b>hreats
+            <br />
+            &emsp;- DHW operation is needed throughout the whole year, this
+            could represent an issue
+          </p>
+        </div>
+        <div class="NTDH" id="div18">
+          <img
+            src="assets/img/NTDH_reversible_heat_pump_for_SH_DHW_and_SC_heating_mode.png"
+            id="NTDH_reversible_heat_pump_for_SH_DHW_and_SC_heating_mode"
+          />
+          <img
+            src="assets/img/NTDH_reversible_heat_pump_for_SH_DHW_and_SC_cooling_mode.png"
+            id="NTDH_reversible_heat_pump_for_SH_DHW_and_SC_cooling_mode"
+          />
+        </div>
+
+        <!-- Booster heat pump for SH/DHW and heat pump for SC-->
+
+        <button type="button" id="fade10" class="btn btn-light">
+          Booster heat pump for SH/DHW and heat pump for SC
+        </button>
+        <br />
+        <br />
+
+        <div class="NTDH" id="div19">
+          <p class="lead">
+            This substation includes two booster heat pumps, thus separating
+            heating and cooling demands. One booster heat pump utilizes warm
+            pipe for heating purposes, while the second one uses cold pipe of
+            the network for cooling demand.
+          </p>
+
+          <p id="SWOT">
+            <b>S</b>trengths
+            <br />
+            &emsp;- The most flexible NTDH substation
+            <br />
+            &emsp;- High COP for both BHPs
+
+            <br />
+            <b>W</b>eaknesses
+            <br />
+            &emsp;- High investment cost
+            <br />
+            &emsp;- Additional space requirements
+
+            <br />
+            <b>O</b>pportunities
+            <br />
+            &emsp;- Suitable for large facilities with different simultaneous
+            demands
+            <br />
+            &emsp;- High level of bidirectionality in the network
+            <br />
+            <b>T</b>hreats
+            <br />
+            &emsp;- No on-site recuperation
+            <br />
+            &emsp;- High O&M costs (2 BHPs)
+          </p>
+        </div>
+        <div class="NTDH" id="div20">
+          <img
+            src="assets/img/NTDH_booster_heat_pump_for_SH_DHW_and_heat_pump_for_SC.png"
+            id="NTDH_booster_heat_pump_for_SH_DHW_and_heat_pump_for_SC"
+          />
+        </div>
+      </div>
+    </div>
+
+    <%- include('components/footer'); %>
+
+    <script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+    crossorigin="anonymous"
+    ></script>
+    <script
+    src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+    integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+    crossorigin=""
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="js/index.js"></script>
+
+  <!--Calling map-->
+  <script>
+    let map = L.map("map").setView([45.295265, 15.970969], 13);
+    var marker = L.marker([45.295265, 15.970969]).addTo(map);
+    marker
+      .bindPopup(
+        "<p>Demonstrator: Health Spa Topusko (Lječili&scaron;te Topusko)</p> <p>Lead reasercher: FMENA, University of Zagreb</p>"
+      )
+      .openPopup();
+
+    L.tileLayer(
+      "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}",
+      {
+        attribution:
+          'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+        maxZoom: 18,
+        id: "mapbox/streets-v11",
+        tileSize: 512,
+        zoomOffset: -1,
+        accessToken:
+          "pk.eyJ1IjoiamwyMjMxMTUiLCJhIjoiY2wyOTU2M3NuMGcwMTN0bW1rdGtncXRpaCJ9.H8eWa35X6HB1EDhL2san-A",
+      }
+    ).addTo(map);
+  </script>
+  </body>
+</html>

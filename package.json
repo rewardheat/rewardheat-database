@@ -1,0 +1,26 @@
+{
+  "name": "fsb-reward-heat",
+  "version": "1.0.0",
+  "description": "fsb reward heat statistic and info",
+  "main": "./js/app.js",
+  "scripts": {
+    "start": "node .",
+    "build": "npx tsc",
+    "start-ts": "npm run build && npm run start",
+    "nodemon": "npx concurrently --kill-others \"npx tsc -w\" \"nodemon .\""
+  },
+  "author": "jan lojen",
+  "license": "ISC",
+  "dependencies": {
+    "@types/ejs": "^3.1.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "nodemon": "^2.0.16",
+    "xlsx": "^0.18.5"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.13",
+    "concurrently": "^7.2.1",
+    "typescript": "^4.7.3"
+  }
+}
