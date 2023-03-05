@@ -26,7 +26,7 @@ $(async function () {
     element: 'stacked',
     stacked: true,
     // hideHover: 'always',
-    barColors: ["#141414", "#282828", "#3c3c3c", "#4f4f4f", "#636363", "#777777", "#8b8b8b", "#9f9f9f", "#b3b3b3", "#c6c6c6", "#dadada"],
+    barColors: ["#2a5d6b", "#495f68", "#606164", "#736360", "#86645d", "#976659", "#a86655", "#b96751", "#c9674d", "#da6649", "#ea6544"],
     hoverCallback: function (index, options, content, row) {
       for (let i = 0; i < row.length; i++) {
         document.getElementById(`value-lcoh-${i}`).textContent = row[i]

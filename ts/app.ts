@@ -23,8 +23,8 @@ app.get('/bar_charts',async (req, res) => {
     res.render('bar_charts', {
         labelsArrayLCOH1: getLCOHData().labels,
         labelsArrayLCOH2: getLCOH2Data().labels,
-        colorsLCOH1: ["#141414","#282828","#3c3c3c","#4f4f4f","#636363","#777777","#8b8b8b","#9f9f9f","#b3b3b3","#c6c6c6","#dadada"],
-        colorsLCOH2: ["#141414","#f05e1b"]
+        colorsLCOH1: ["#2a5d6b", "#495f68", "#606164", "#736360", "#86645d", "#976659", "#a86655", "#b96751", "#c9674d", "#da6649", "#ea6544"],
+        colorsLCOH2: ["#2a5d6b","#f05e1b"]
     })
 })
 

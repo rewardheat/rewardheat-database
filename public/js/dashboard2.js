@@ -20,13 +20,13 @@ $(async function () {
     hideHover: 'auto',
     behaveLikeLine: true,
     resize: true,
-    pointFillColors: ['#ffffff'],
-    pointStrokeColors: ['black'],
-    lineColors: ['gray', 'red'],
+    pointFillColors: ['#2a5d6b'],
+    pointStrokeColors: ['#2a5d6b'],
+    lineColors: ['#2a5d6b', 'red'],
     element: 'stacked2',
     // stacked: true,
     // hideHover: 'always',
-    barColors: ["#141414", "#f05e1b"],
+    barColors: ["#2a5d6b", "#f05e1b"],
     hoverCallback: function (index, options, content, row) {
       for (let i = 0; i < row.length; i++) {
         document.getElementById(`value-lcoh2-${i}`).textContent = row[i]
